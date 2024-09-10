@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-+u$=52&%if=lhqauv$^*tyg1rt!ed!==t!br(7bqlihn+u$qi!
 DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "philip-halomoan-tokopakdika2.pbp.cs.ui.ac.id"]
-# Nambahin allowed host dan benerin yang tadinya sc ke ac
 
 # Application definition
 
