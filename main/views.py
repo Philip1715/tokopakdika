@@ -10,7 +10,7 @@ def show_main(request):
         'name': 'Pak Bepe',
         'class': 'PBP D',
         'npm': '2306123456',
-        'mood_entries': product_entries
+        'product_entries': product_entries
     }
 
     return render(request, "main.html", context)
