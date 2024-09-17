@@ -1,3 +1,4 @@
+Tugas 2 :
 Link pws : https://philip-halomoan-tokopakdika77.pbp.cs.ui.ac.id/
 
 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
@@ -70,3 +71,53 @@ Menurut saya pribadi ada beberapa alasan mengapa framework Django dipilih sebaga
 5.Mengapa model pada Django disebut sebagai ORM?
 Jawaban :
 Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena menggunakan teknik pemetaan objek untuk berinteraksi dengan basis data yang berelasi. ORM memungkinkan developer untuk bekerja dengan database menggunakan konsep-konsep pemrograman berorientasi objek, daripada menggunakan bahasa SQL langsung untuk manipulasi data.
+
+Tugas 3 :
+1. Data delivery adalah proses pengiriman dan penerimaan data antara berbagai komponen di dalam sebuah platform, misalnya antara server dengan client, atau antar layanan mikro. Dalam pengimplementasian sebuah platform, data delivery diperlukan karena beberapa alasan:
+
+- Interoperabilitas: Aplikasi atau platform umumnya terdiri dari berbagai komponen yang mungkin berjalan di server yang berbeda, ditulis dalam bahasa pemrograman yang berbeda, atau dijalankan di perangkat yang berbeda. Data delivery memastikan komunikasi yang efektif antara komponen-komponen ini.
+
+- Konsistensi Data: Data delivery memastikan bahwa data yang diterima oleh semua komponen platform adalah sama dan terkini. Hal ini penting agar aplikasi atau platform berjalan dengan baik tanpa adanya konflik data.
+
+- Efisiensi dan Skalabilitas: Sistem yang mendukung data delivery memungkinkan komunikasi yang efisien, baik secara sinkron maupun asinkron. Ini penting untuk aplikasi berskala besar yang melibatkan banyak pengguna atau memiliki alur data yang kompleks.
+
+2. JSON umumnya lebih baik dan populer dalam pengembangan web modern karena beberapa alasan:
+
+- Sintaks yang Lebih Ringkas: JSON memiliki struktur yang lebih sederhana dan lebih mudah dibaca oleh manusia dibandingkan XML. Hal ini membuat JSON lebih ringan dan lebih cepat untuk diproses, baik oleh server maupun klien.
+
+- Pengikatan Lebih Baik dengan JavaScript: JSON adalah format data asli JavaScript. Jadi, pada aplikasi web modern, terutama yang menggunakan JavaScript di frontend, JSON dapat langsung diproses tanpa parsing yang rumit.
+
+- Ukuran Lebih Kecil: JSON cenderung menggunakan lebih sedikit karakter dibandingkan XML, yang berarti pengiriman data melalui jaringan lebih efisien karena ukuran payload lebih kecil.
+
+- Popularitas pada RESTful API: JSON sangat populer digunakan dalam RESTful API karena sifatnya yang ringan dan mudah diproses di berbagai platform dan bahasa pemrograman.
+
+3. Di Django, method is_valid() pada form digunakan untuk memvalidasi data yang dikirimkan ke form. Metode ini melakukan hal-hal berikut:
+
+- Validasi Data: Mengecek apakah data yang dikirimkan ke form memenuhi kriteria validasi yang ditentukan di form (misalnya apakah field tertentu bersifat wajib, atau apakah data mengikuti format yang benar, seperti email yang valid).
+
+- Membersihkan Data: Jika form valid, method ini juga membersihkan data, mengonversi tipe data yang diinput agar sesuai dengan tipe yang diharapkan.
+
+Jika is_valid() mengembalikan True, artinya data dalam form valid dan siap untuk diproses (misalnya untuk disimpan ke database). Jika mengembalikan False, artinya ada kesalahan pada input pengguna dan biasanya Django akan memberikan pesan kesalahan yang relevan.
+
+4. Django menggunakan csrf_token untuk mencegah serangan CSRF, di mana penyerang dapat melakukan aksi tidak sah di situs Anda dengan memanfaatkan sesi pengguna yang sedang login tanpa sepengetahuannya.
+
+Fungsi csrf_token: Token ini dimasukkan ke form dan diverifikasi saat form dikirim ke server. Hal ini memastikan bahwa permintaan berasal dari situs Anda, bukan dari pihak luar yang mencoba menyalahgunakan sesi pengguna.
+
+Jika csrf_token tidak ada: Situs Anda rentan terhadap serangan CSRF, di mana penyerang bisa menjalankan aksi seperti mengubah data atau melakukan transaksi tanpa izin.
+
+Cara penyerang memanfaatkannya: Penyerang bisa membuat form tersembunyi di situs lain atau email, dan ketika pengguna mengkliknya, permintaan berbahaya akan dikirim ke server tanpa diketahui pengguna. Tanpa csrf_token, server tidak bisa membedakan apakah permintaan tersebut sah atau berbahaya.
+
+5. - Hal pertama yang saya lakukan adalah adalah menambahkan form.py pada direktori main. Pada forms tersebut saya melakukan import modelform yang sudah ada dari django
+- Selanjutnya saja melakukan import ProductEntry yang ada di models.py yang ada di main. ProductEntry di import agar nantinya model dari form dapat disimpan menjadi sebuah objek dari ProductEntry
+- Setelah itu saya membuat class ProductEntryForm yang fieds nya terdapat name, description, price dan stock. sesua dengan input field yang akan ada nanti.
+- Setelah itu Pada views.py saya mengimport ProductEntry dan MoodEntryForm yang sebelumnya sudah kita definisikan.
+- Setelah itu saya membuat function create_product_entry yang nantinya akan menerima input, memvalidasi input dengan form.is_valid(), menyimpan data dengan form.save(), dan menunjukannya.
+- Setelah itu saya menambahkan fungsi MoodEntry.objects.all() di views.py untuk mengambil seluruh objek dari ProductEntry.
+- Setelah itu pada urls.py saya mengimport create_product_entry dan menambahkan pathnya.
+- Setelah itu saya menambahkan berkan html untuk formnya agar dapat mengatur tampilannya. form tersebut saya simpa di direktori templates yang ada di main dengan nama create_product_entry
+- Setelh itu saya lanjut untuk checklist selanjutnya. Saya menambahkan function pada views py yaitu show_json, show_xml, show_json_by_id, dan show_xml_by_id yang masing-masing memiliki isi seperti ini :
+data = ProductEntry.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+- Setelah itu saya mengimport HttpResponse dan serializers yang memang sudah ada dari django.
+- Setelah itu pada urls.py saya melakukan import dari setiap function diatas dan memasukan pathnya pada urlpatterns
