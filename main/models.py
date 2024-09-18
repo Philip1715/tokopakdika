@@ -7,5 +7,6 @@ class ProductEntry(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)  # Harga produk
     stock = models.IntegerField()                 # Jumlah stok produk
 
-    def __str__(self):
-        return self.name
+    @property
+    def is_mood_strong(self):
+        return self.mood_intensity > 5

@@ -121,3 +121,11 @@ data = ProductEntry.objects.filter(pk=id)
 
 - Setelah itu saya mengimport HttpResponse dan serializers yang memang sudah ada dari django.
 - Setelah itu pada urls.py saya melakukan import dari setiap function diatas dan memasukan pathnya pada urlpatterns
+
+SS Json :https://drive.google.com/file/d/1nsnsZBFQi6v-71V49jBUZEy6IFWvBfCU/view?usp=sharing
+
+SS Xml : https://drive.google.com/file/d/1sxm0bNGZbIZQpQDrXQNCTn5D5fzLIZA0/view?usp=sharing
+
+SS Xml By ID : https://drive.google.com/file/d/1o5aA1nX2_eQTGKp9FbCJ5nXKRClG3Btz/view?usp=sharing
+
+SS Json By ID :https://drive.google.com/file/d/1cMjC_NPOfTFUvzeIt5np0-b05MFAGWin/view?usp=sharing
