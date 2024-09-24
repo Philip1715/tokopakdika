@@ -129,3 +129,74 @@ SS Xml : https://drive.google.com/file/d/1sxm0bNGZbIZQpQDrXQNCTn5D5fzLIZA0/view?
 SS Xml By ID : https://drive.google.com/file/d/1o5aA1nX2_eQTGKp9FbCJ5nXKRClG3Btz/view?usp=sharing
 
 SS Json By ID :https://drive.google.com/file/d/1cMjC_NPOfTFUvzeIt5np0-b05MFAGWin/view?usp=sharing
+
+Tugas 4:
+1. Untuk HttpResponseRedirect memrlukan penyediaan URL secara manual yang akan dituju sedangkan untuk redirect() kita dapat menggunakan URL ataupun nama dari view, sehingga bisa dibilang redirect() lebih fleksibel mudah dibaca dan dipahami.
+
+2. Penghubungan antara user dan product diawali dengan adanya ForeignKey, hal ini menjadikan user sebagai kunci dimana dengan itu product dapat dihubungkan dengan user dan membuat user bisa terhubung dengan banyak product. Setelah itu penambahan parameter commit=false membuat produk yang akan disimpan tidak langsung basuk ke database tetapi bisa dimodifikasi terlebih dahulu dan setelah itu objek ditandakan sebagai milik user yang sedang login dengan adanya return value dari request.user
+
+3. Authentication adalah proses yang akan mengecek apakah data login yang dimasukan sesuai dengan apa yang ada di database.
+Django mengimplementasikan authentication dengan adanya :
+- Model User: Django menyediakan model User yang menyimpan informasi pengguna seperti username, password, email, dan lainnya.
+- Form: Django memiliki class dan form siap pakai seperti from django.contrib.auth, UserCreationForm untuk pendaftaran dan AuthenticationForm untuk login.
+- View: Django menyediakan view untuk menangani login (login), logout (logout), dan pendaftaran (register).
+- Middleware: Django juga menyediakan middleware AuthenticationMiddleware yang mengatur pengguna yang sedang login di setiap permintaan.
+- Dekorator: Anda bisa menggunakan dekorator @login_required untuk melindungi view sehingga hanya pengguna yang sudah terautentikasi yang dapat mengaksesnya.
+ 
+Sedangkan authorization adalah proses yang memisah-misahkan data/sumber daya, kemampuan, dan hak dalam program antara para user ataupun antara user dengan admin sehingga setiap orang memiliki data/sumber daya, kemampuan, ataupun hak pada program yang berbeda-beda. 
+Django mengimplementasikan authorization dengan adanya :
+- Permissions: Django memungkinkan Anda untuk mendefinisikan izin (permissions) di level model. Anda bisa menentukan izin khusus untuk objek tertentu atau menggunakan izin default seperti add, change, dan delete.
+- Group: Pengguna dapat dimasukkan ke dalam grup, dan grup ini dapat diberikan izin tertentu. Ini memudahkan pengelolaan izin untuk banyak pengguna.
+- Decorator dan Middleware: Django menyediakan dekorator seperti @permission_required untuk membatasi akses ke view berdasarkan izin yang dimiliki pengguna.
+- Custom Permissions: Anda juga dapat membuat izin kustom di dalam model Anda dengan menambahkan atribut permissions dalam Meta class.
+
+4. Django mengingat pengguna yang telah login dengan mengunakan session dan cookies, dimmana keduanya adalah semacam ruang penyimpanan sementara yang akan dikirim ke server untuk melakukan request. 
+
+Kegunaan Lain dari Cookies
+- Pengaturan Preferensi Pengguna:
+Cookies dapat menyimpan preferensi pengguna, seperti tema tampilan, bahasa, dan pengaturan lainnya agar pengalaman pengguna lebih personal.
+Tracking dan Analytics:
+
+- Cookies dapat digunakan untuk melacak perilaku pengguna di situs web, membantu dalam analisis data untuk meningkatkan pengalaman pengguna.
+Keranjang Belanja:
+
+- Dalam aplikasi e-commerce, cookies dapat menyimpan informasi tentang item yang ditambahkan ke keranjang belanja, sehingga pengguna dapat melanjutkan berbelanja di lain waktu.
+Keamanan:
+
+- Cookies dapat digunakan untuk menyimpan token keamanan yang digunakan untuk mengautentikasi permintaan API.
+
+dan apakah semua cookies aman, jawabannya adalah tidak. Cookies dapat menyimpan kode atau token yang dapat dengan mudah diakses oleh orang tidak bertangung jawab melalui Cross-Site Scripting ataupun Cross-site Request Forgery, sehingga pelaku tersebut dapat melakukan request yang bisa menguntungkan pelaku dan merugikan user. Cookies yang tidak di enkripsi juga dapat terkena resiko penyadapan oleh pihak ketiga, misalnya melalui jaringan yang tidak aman seperti wifi publik. Hal ini dapat menimbulkan pencurian data, pelacakan, bahkan resiko kehilangan akses bagi korban.
+
+5. - Tahap pertama yang saya lakukan adalah membuat form untuk register agar informasi login dapat ddisimpan. diawalai dengan mengimport class yang memang sudah ada dari django yaitu UserCreationForm(untuk membuat form) dan messages
+- Setelah itu saya membuat fungsi register yang nantinya akan memunculkan form dan mendirect program untuk ke halaman login ketika form sudah diisi. Fungsi register disimpan di views.py
+- Setelah itu untuk menampilkan form tersebut saya membuat file html baru bernama register.html yang disimpan di templates. setelah itu memasukan halaman register dengan mengimportnya di urls.py dan memasukan pathnya pada urlpatterns
+- Setelah itu saya membuat fungsi login dan logout. Saya melakukan import AuthenticationForm dan authenticate, login yang tersedia dari django melalui django.contrib.auth. Dari sumber yang sama saya juga melakukan import logout. 
+- Setelah itu saya menambahkann fungsi login dan logout di views.py sesuai dengan template kode. Karena sesi login memiliki halaman tersendiri, tidak seperti logout, maka saya membuat file html baru yaitu login.html untuk menampilkan tampilan login yang akan meminta username dan password. login.html disimpan di direktori templates.
+- Untuk menambahkan tombol logout maka saya menempatkan 
+    <!-- <a href="{% url 'main:logout' %}">
+    <button>Logout</button>
+    </a> -->
+sebagai hyperlink tag yang akan mengembalikan halaman ke halaman login.
+- Setelah itu saya mengimport fungsi login dan fungsi logout ke urls.py dan memasukan pathnya ke urlpattern.
+- Untuk memastikan bahwa user harus login maka saya mengimport login_required melalui django.contrib.auth.decorators di views.py dan sebelum function main menu atau show_menu saya menambahkan dekorator @login_required(login_url='/login') sehingga user harus login terlebih dahulu sbeelum masuk ke tampilan main program.
+- Setelah itu agar produk yang ditampilkan bisa sesuai dengan tiap-tiap user maka saya membuat 1 akun terlebih dahulu. setelah itu mengimport user dari django.contrib.auht.models pada models.py.
+- Pada ProductEntry saya menambahkan user = models.ForeignKey(User, on_delete=models.CASCADE). Dengan menambahkan foreign key nantinya setiap produk akan terhubung dengan usernya dan user bisa terhubunga dengan banyak produk. 
+- Setelah itu pada views.py saya menambahkkan :
+    mood_entry = form.save(commit=False)
+    mood_entry.user = request.user
+    mood_entry.save()
+form.save(commit=False) dtiambahkan agar setiap data tidak langsung ditambahkan ke database tetapi dapat dimodifikasi terlebih dahulu dan akan disimpan sesuai dengan user yang sedang login dengan adanya return dari request.user.
+- Setelah itu agar default value dapat di set, saya melakukan make migrations dan migrate sehingga field user dibuat pada database.
+- Setelah itu saya mengisi form pada akun pertama sebanyak 3 data dan setelah itu saya logout, membuat akun baru, login, dan mengisi akun tersebut dengan 3 data/produk.
+- Setelah itu agar last login dapat diketahui oleh user saya menambahkan datetime, reverse, dan HttpResponseRedirect.
+- Setelah itu saya menambahkan kode berikut :
+    login(request, user)
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    response.set_cookie('last_login', str(datetime.datetime.now()))
+kode berikut ditambahkan pada fungsi login_user ketika form tersebut valid. penambahan kode ini agar program dapat menyimpan waktu tepat ketika pengisian form login valid sehingga nantinya kita bisa mengetahui waktu dan tanggal saat kita terakhir kalo login.
+- lalu pada context yang ada pada main agar keterangan login dapat dimunculka pada web, saya menambkan 'last_login': request.COOKIES['last_login'],
+- Setelah agar dapat ditampilkan, saya menambahkan
+ <!-- <h5>Sesi terakhir login: {{ last_login }}</h5>  -->
+pada file main.html. Penempatannya saya letakan dibawah tombol logout.
+- Setelah itu agar kedepannya lat_login dapat selalu diperbarui sesuai dengan waktu saat login, kita perlu menghapus data last_login yang sudah ada agar data tidak menumpuk. cara menghapusnya adalah dengan menempatkan response.delete_cookie('last_login') pada fungsi logout sehingga setiap kali user menekan tombol logout, data last_login dihapus dan siap menerima data baru sesuai dengan waktu saat user akan melakukan login lagi.
+
