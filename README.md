@@ -200,3 +200,67 @@ kode berikut ditambahkan pada fungsi login_user ketika form tersebut valid. pena
 pada file main.html. Penempatannya saya letakan dibawah tombol logout.
 - Setelah itu agar kedepannya lat_login dapat selalu diperbarui sesuai dengan waktu saat login, kita perlu menghapus data last_login yang sudah ada agar data tidak menumpuk. cara menghapusnya adalah dengan menempatkan response.delete_cookie('last_login') pada fungsi logout sehingga setiap kali user menekan tombol logout, data last_login dihapus dan siap menerima data baru sesuai dengan waktu saat user akan melakukan login lagi.
 
+Tugas 5:
+
+1. Urutan Prioritas CSS Selector
+Urutan prioritas CSS selector diatur berdasarkan spesifisitas berikut ini:
+- Inline styles: CSS yang ditulis langsung pada elemen HTML memiliki prioritas tertinggi (contoh: style="color: red;").
+- ID selector: Selector yang merujuk pada ID elemen (contoh: #my-id) memiliki tingkat prioritas lebih tinggi daripada class atau tag.
+- Class selector, pseudo-class, attribute selector: Selector seperti .my-class, :hover, dan [type="text"] memiliki prioritas yang lebih rendah daripada ID tapi lebih tinggi daripada selector elemen.
+- Element selector: Selector yang menggunakan tag HTML (contoh: p, div, h1) memiliki prioritas terendah.
+- Universal selector (*) dan kombinator (+, ~, >, ): memiliki prioritas paling rendah.
+Jika ada conflict antara beberapa selector dengan spesifisitas yang sama, CSS akan menerapkan selector yang berada paling akhir dalam file.
+
+2. Pentingnya Responsive Design dalam Pengembangan Web.
+Dengan menerapkan Responsive Design, web dapat nmenyesuaikan designnya pada berbagai macam layout device, seperti smartphone, tablet, dan desktop, yang memiliki ukuran layar dan resolusi yang berbeda. Hal ini dapat membuat pengguna akan merasa nyaman ketika tampilan website dapat menyesuaikan dengan layar yang mereka gunakan.
+Responsive design memastikan semua pengguna, termasuk pengguna dengan layar kecil atau besar, dapat mengakses konten dengan mudah.
+
+Contoh aplikasi yang sudah menerapkan responsive design:
+Google: Website Google memiliki layout sederhana namun responsif di berbagai perangkat.
+Contoh aplikasi yang belum menerapkan responsive design:
+
+Aplikasi website lama atau yang tidak di-update mungkin masih menggunakan layout fixed-width yang tidak beradaptasi dengan baik pada ukuran layar mobile, menyebabkan pengguna harus melakukan zoom dan scroll secara horizontal.
+
+3. Perbedaan Margin, Border, dan Padding dalam CSS
+
+- Margin: Jarak antara elemen dan elemen lainnya di luar border. Ini mengontrol ruang di luar elemen.
+Contoh : 
+div {
+  margin: 20px;
+}
+
+- Border: Garis yang mengelilingi elemen dan berada di antara padding dan margin. Border ini terlihat secara visual.
+Contoh :
+div {
+  border: 2px solid black;
+}
+
+- Padding: Ruang antara konten elemen dan border. Ini mengontrol ruang di dalam elemen
+Contoh :
+div {
+  padding: 10px;
+}
+
+4. Flexbox
+Flexbox (Flexible Box Layout) adalah model tata letak yang dirancang untuk mendistribusikan elemen dalam sebuah container secara fleksibel dalam satu dimensi (baik baris atau kolom).
+
+Kegunaan: Flexbox sangat berguna untuk tata letak horizontal atau vertikal yang responsif, seperti menu navigasi, galeri gambar, atau card layout.
+
+Grid Layout
+CSS Grid adalah sistem tata letak dua dimensi yang memungkinkan kita untuk menyusun elemen dalam baris dan kolom. Ini jauh lebih kuat untuk tata letak kompleks dibandingkan Flexbox, karena Grid bekerja di dua dimensi (baik baris maupun kolom).
+
+Kegunaan: Grid Layout digunakan untuk layout kompleks seperti desain halaman yang melibatkan beberapa kolom dan baris, seperti template halaman blog, galeri foto, atau halaman dashboard.
+
+5. - Hal pertama yang saya lakukan pada tugas ini adalah mengimplementasi Tailwind ke dalam program ini. Selain itu saya juga memasukan global.css untuk kebutuhan desain yang lebih detail untuk kedepannya.
+- Untuk mencapai fitur menghapus dan mengedit, saya membuat fungsi edit_product dan delete_product di views.py. Nantinya fungsi edit_product akan mengarahkan halaman ke halaman edit_product dan menampilkan form sehingga kita bisa mengubah data product. Untuk delete_product akan menghapus akan melakukan get terhadap product id lalu melakukan operasi delete.
+- Setelah itu pada urls.py, saya mengimport kedua fungsi tersebut dan memasukannya ke urlpatterns.
+- Supaya bisa menampilkan halaman edit_product, saya menambahkan edit_product.html yang nantinya akan memunculkan form, lalu akan return ke main ketika sudah di submit. 
+- Masuk ke bagian navbar saya melakukan penambahan file yaitu navbar.html. Lalu saya melakukan desain dengan menempatkan nama toko, beberapa elemen navbar dan juga tombol logout yang akan mereturn program ke halaman login.
+- Setelah itu masuk ke kostumasasi desain template html. template pertama yang saya ubah adalah login page. Saya membuat gambar dengan tema promo diskon 10.10. Setelah itu pada template saya membuat sebuah box yang di dalamnya terdapat bar untuk mengisi username, bar untuk menngisi password, tombol login, dan dibawahnya link yang mengarahkan ke register page.
+- Setelah itu saya tempatkan gambar 1010sale sejajar dengan box tersebut.
+- Template yang saya ubah selanjutnya adalah register page. Kurang lebih isi dari register pae dan login page sama. yang membedakan adalah adanya bar untuk confirmation page dan juga link yang akan mengarahkan pengguna ke login page jikda sudah memiliki akun.
+- Setelah itu agar nantinya penampilan dari setiap product lebih terstruktur saya membuat file baru bernama card_prduct. Pada card product saya menampilkan semua data product lalu membuat dua tombol di dalamnya yang nantinya akan berguna untuk mengedit dan menghapus product.
+- Pada bagian main.html saya menghapus semua isi yang ada sebelumnya, menyisakan tombol product_entry dan keterangan last login yang saya berikan box dan memberi warna hijau. Pada bagian yang sama saya melakukan penambahan yang memangil card_product, menempatkannya sejajar. Kemudian saya membuat conditional yang dimana jika product_entries kosong maka akan menampilkan keterangan dan gambar bahwa belum ada product di Tokopakdika. 
+- Untuk mencapai checklist tereakhir saya menambahkan navbar.html pada setiap html yang ada.
+- Untuk mencegah tertimpanya card_product dengan navbar pada main.html, saya membuat sebuah page abu sehingga membuat jarak antara card_product dengan bagian teratasdari halaman atau page.
+- Sebagai hal terakhir dari checklist, saya mengisi readme ini.

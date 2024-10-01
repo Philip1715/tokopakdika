@@ -15,13 +15,13 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/login')
 def show_main(request):
     product_entries = ProductEntry.objects.filter(user=request.user)
-
+    last_login = request.COOKIES.get('last_login', 'Unknown')  # Default ke 'Unknown' jika tidak ada
     context = {
         'name': request.user.username,
         'class': 'PBP E',
         'npm': '2306240130',
         'product_entries': product_entries,
-        'last_login': request.COOKIES['last_login'],
+        'last_login': last_login,
     }
 
     return render(request, "main.html", context)
@@ -88,3 +88,26 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def edit_product(request, id):
+    # Get mood entry berdasarkan id
+    product = ProductEntry.objects.get(pk = id)
+
+    # Set mood entry sebagai instance dari form
+    form = ProductForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    # Get mood berdasarkan id
+    product = ProductEntry.objects.get(pk = id)
+    # Hapus mood
+    product.delete()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_main'))
