@@ -1,39 +1,38 @@
 <div class="relative break-inside-avoid bg-white rounded-lg shadow-md overflow-hidden border border-gray-300 hover:shadow-lg transition-shadow duration-300">
-    <!-- Card Content -->
-    <div class="p-6">
-      <div class="flex items-center justify-between mb-4">
-        <!-- Product Name and Price -->
-        <h3 class="text-2xl font-semibold text-gray-900">{{ product_entry.name }}</h3>
-        <p class="text-lg font-bold text-green-500">Rp{{ product_entry.price }}</p>
-      </div>
-  
-      <!-- Product Description -->
-      <p class="text-gray-600 text-sm mb-4">{{ product_entry.description }}</p>
-  
-      <!-- Product Stock -->
-      <p class="text-sm font-semibold text-gray-800">
-        Stock Available: 
-        <span class="text-indigo-500">{{ product_entry.stock }}</span>
-      </p>
+  <!-- Card Content -->
+  <div class="p-6">
+    <div class="flex items-center justify-between mb-4">
+      <!-- Product Name and Price -->
+      <h3 class="text-2xl font-semibold text-gray-900">{{ product_entry.name }}</h3>
+      <p class="text-lg font-bold text-green-500">Rp{{ product_entry.price }}</p>
     </div>
-  
-    <!-- Divider -->
-    <div class="border-t border-gray-200"></div>
-  
-    <!-- Edit & Delete Buttons Inside the Box -->
-    <div class="p-4 flex justify-between items-center bg-gray-50">
-      <a href="{% url 'main:edit_product' product_entry.pk %}" class="flex items-center bg-blue-500 hover:bg-blue-600 text-white rounded-md px-4 py-2 transition duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m0 6v3a1 1 0 001 1h3a1 1 0 001-1v-3m-2-5.172a4 4 0 100-5.656l-8.486 8.486a4 4 0 00-5.657 5.657l8.486-8.486zm2-2 2 2m-2-2l-2 2" />
-        </svg>
-        Edit
-      </a>
-      <a href="{% url 'main:delete_product' product_entry.pk %}" class="flex items-center bg-red-500 hover:bg-red-600 text-white rounded-md px-4 py-2 transition duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-        Delete
-      </a>
-    </div>
+
+    <!-- Product Description -->
+    <p class="text-gray-600 text-sm mb-4">{{ product_entry.description }}</p>
+
+    <!-- Product Stock -->
+    <p class="text-sm font-semibold text-gray-800">
+      Stock Available: 
+      <span class="text-indigo-500">{{ product_entry.stock }}</span>
+    </p>
   </div>
-  
+
+  <!-- Divider -->
+  <div class="border-t border-gray-200"></div>
+
+  <!-- Edit & Delete Buttons Inside the Box -->
+  <div class="p-4 flex justify-between items-center bg-gray-50">
+    <a href="{% url 'main:edit_product' product_entry.pk %}" class="flex items-center bg-blue-500 hover:bg-blue-600 text-white rounded-md px-4 py-2 transition duration-300">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m0 6v3a1 1 0 001 1h3a1 1 0 001-1v-3m-2-5.172a4 4 0 100-5.656l-8.486 8.486a4 4 0 00-5.657 5.657l8.486-8.486zm2-2 2 2m-2-2l-2 2" />
+      </svg>
+      Edit
+    </a>
+    <a href="{% url 'main:delete_product' product_entry.pk %}" class="flex items-center bg-red-500 hover:bg-red-600 text-white rounded-md px-4 py-2 transition duration-300">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+      Delete
+    </a>
+  </div>
+</div>

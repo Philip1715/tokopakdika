@@ -264,3 +264,58 @@ Kegunaan: Grid Layout digunakan untuk layout kompleks seperti desain halaman yan
 - Untuk mencapai checklist tereakhir saya menambahkan navbar.html pada setiap html yang ada.
 - Untuk mencegah tertimpanya card_product dengan navbar pada main.html, saya membuat sebuah page abu sehingga membuat jarak antara card_product dengan bagian teratasdari halaman atau page.
 - Sebagai hal terakhir dari checklist, saya mengisi readme ini.
+
+Tugas 6 :
+1. Manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web:
+
+- Interaktivitas: JavaScript memungkinkan pengembang membuat halaman web yang interaktif. Misalnya, form validasi langsung, animasi, dan respons terhadap input pengguna tanpa perlu memuat ulang halaman.
+- Pengalaman Pengguna yang Lebih Baik: Dengan JavaScript, halaman web bisa di-update secara dinamis menggunakan AJAX tanpa memuat ulang seluruh halaman, sehingga memberikan pengalaman yang lebih cepat dan responsif.
+- Pengelolaan DOM: JavaScript dapat digunakan untuk memanipulasi dan memperbarui elemen-elemen DOM secara langsung, memungkinkan konten halaman berubah berdasarkan tindakan pengguna.
+- Pengembangan Aplikasi Web Modern: JavaScript mendukung pengembangan aplikasi web modern seperti SPA (Single Page Applications) menggunakan framework seperti React, Angular, dan Vue, yang memungkinkan navigasi cepat tanpa memuat ulang halaman.
+- Kompatibilitas Cross-platform: JavaScript berjalan di browser pengguna, artinya aplikasi web berbasis JavaScript dapat berjalan di berbagai perangkat dan platform tanpa perlu pengaturan tambahan.
+
+2. Fungsi await ketika menggunakan fetch(): await digunakan untuk menunggu penyelesaian Promise yang dikembalikan oleh fetch(). fetch() adalah fungsi asinkron yang melakukan permintaan HTTP, dan hasilnya tidak segera tersedia karena membutuhkan waktu untuk mendapatkan respons dari server. Dengan await, kode berhenti sejenak dan menunggu hasil permintaan HTTP sebelum melanjutkan eksekusi.
+
+Jika kita tidak menggunakan await, maka fetch() akan mengembalikan Promise yang belum terselesaikan, dan kode akan terus berjalan tanpa menunggu respons. Hal ini bisa menyebabkan error atau data yang belum tersedia, karena operasi yang bergantung pada hasil fetch() akan dieksekusi sebelum hasil tersebut diterima.
+
+Contoh perbedaannya:
+// Dengan await
+const response = await fetch(url);
+const data = await response.json();
+console.log(data); // Mencetak data setelah respons diterima
+
+// Tanpa await
+const response = fetch(url);
+console.log(response); // Mencetak Promise yang belum diselesaikan
+
+3. Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang digunakan untuk AJAX POST: CSRF (Cross-Site Request Forgery) adalah serangan yang memanfaatkan kepercayaan antara pengguna dan server. Django secara default mengaktifkan perlindungan CSRF untuk semua permintaan POST agar permintaan dari domain yang tidak diizinkan tidak dapat dilakukan tanpa izin pengguna.
+
+Jika kita melakukan permintaan AJAX POST tanpa melampirkan token CSRF yang valid, Django akan menolak permintaan tersebut. Decorator csrf_exempt digunakan untuk menonaktifkan pemeriksaan CSRF pada view tertentu, terutama ketika:
+- Kita tahu bahwa permintaan berasal dari sumber yang tepercaya.
+- Kita belum menambahkan mekanisme untuk mengirim token CSRF bersama dengan permintaan AJAX.
+Namun, meskipun menggunakan csrf_exempt memberikan kemudahan, penting untuk memastikan keamanan lain tetap terjaga untuk menghindari potensi serangan.
+
+4. Mengapa pembersihan data input pengguna dilakukan di backend juga, tidak hanya di frontend: Meskipun pembersihan input dapat dilakukan di frontend untuk memberikan pengalaman pengguna yang lebih baik (misalnya, validasi langsung dan pesan error), melakukan pembersihan hanya di frontend tidak cukup aman. Alasannya adalah:
+
+- Frontend Dapat Dimodifikasi: Kode JavaScript di frontend dapat diubah atau dilewati oleh pengguna menggunakan alat debugging browser. Hal ini memungkinkan pengguna mengirimkan data yang tidak valid atau berbahaya (misalnya, script injeksi).
+- Keamanan Server: Backend merupakan lapisan terakhir dari keamanan aplikasi. Jika input hanya dibersihkan di frontend, ada risiko server menerima input yang tidak aman, yang bisa menyebabkan serangan seperti SQL injection atau XSS (Cross-Site Scripting).
+- Konsistensi: Backend perlu memastikan semua data yang diterima dari berbagai sumber (termasuk API atau integrasi lainnya) selalu bersih dan valid, sehingga pembersihan di backend menjaga konsistensi dan integritas data.
+
+Oleh karena itu, walaupun validasi dan pembersihan input di frontend berguna untuk pengalaman pengguna, validasi dan pembersihan di backend adalah keharusan demi keamanan dan integritas aplikasi.
+
+5. - Step pertama yang saya lakukan adalah melakukan import untuk mendukung pembuatan add_product_entry_ajax. 
+- Saya membuat function baru bernama add_product_entry_ajax yang memiliki fungsi yang sama dengan productEntry.
+- Saya memastikan bahwa pemetaan isi yang di get sesuai dengan variabel pada ProductEntry
+- Setelah itu pada urls.py, add_product_entry_ajax di import dan ditambahkan pathnya di urlpatterns
+- Setelah itu saya menghapus product_entries yang ada di views.py karena untuk nantinya data akan langsung di filter di json/xml
+- saya menambahkan line yang akan mamasukan nilai berupa objek-objek product yang sudah di filter bedasarkan usernya. Line ini ditambahkan di show_json dan show_xml
+- Tak lupa saya menghapus line pengambilan data yang lama agar setiap data hanya muncul sesuai dengan user yang sedang login.
+- Pada main.html bagian yang berguna untuk menampilkan produk di halaman utama di hapus dan digantikan dengan penaruan product_entry_cards sebagai penanda.
+- Setalah itu pada main.html saya membuat sebuah function di script yang akan mendefinisikan bagian yang sudah di tag id product_entry_cards. Isi dari function kurang lebih sama dengan bagian yang di hapus sebelumya, hanya saja terdapat penambahan kode berupa tampilan card dari product yang sudah saya buat sebelumnya, yang dimanya sebelumnya kode tersebut hanya berada di card_product.html.
+- Setelah itu saya membuat function di script yang akan melakukan get terhadap product entries, mengambilnya melalui json.
+- Agar dapat menambahkan product dengan ajax, saya menambahkan sebuah function yang mengambil id melalui productForm dan merespon terhadap click. Setelah itu menambahkan menambahkan kode yang akan menerima respon submit
+- Setelah itu saya menambahkan implementasi modal pada program sesuai dengan ketentuan. Untuk implementasi modal ini, saya menyesuaikannya dengan kebutuhan program saya yang memrlukan 4 data yaitu name, description, price, dan stock. 
+- Setelah itu saya menambahkan function showModal dan hideModal yang dibutuhkan karena tidak adanya class modal yang sudah built in di Tailwind CSS.
+- Step terakhir yaitu agar web aman dari XSS atau Cross Site Scripting, saya mengimport strip_tags dan menempatkannnya di variabel data yang bisa menerima input tulisan seperti name dan description.
+- Setelah itu pada forms saya menambahkan method clean_product dan clean_feelings agar jika ada upaya untuk melakukan XSS, input yang dimasukan dapat langsung ditolak dan dibersihkan
+- Dan terakhir saya mengisi readme.md ini.
